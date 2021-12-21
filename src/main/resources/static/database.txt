@@ -1,0 +1,50 @@
+CREATE TABLE Languages (
+  LanguageID      numeric  primary key,
+  LanguageName    varchar(60) not null
+);
+
+
+CREATE TABLE Countries (
+  CountryID       numeric  primary key,
+  Country_Name     varchar(50) not null,
+  Capital         varchar(50) unique not null,
+  Population      numeric not null,
+  LanguageID      numeric  not null,
+  constraint rule_languageID_fk FOREIGN KEY (LanguageID) REFERENCES Languages(LanguageID)
+);
+
+
+
+insert into Languages values(0001, 'Spanish');
+insert into Languages values(0002, 'French');
+
+insert into countries values (0001, 'Mexico', 'CDMX', 128900000, 0001);
+insert into countries values (0002, 'France', 'Paris', 67390000, 0002);
+
+update Countries set population = 250000 WHERE CountryID = 0001;
+delete from Countries where population > 100000;
+
+select * from Countries JOIN Languages ON Countries.LANGUAGEID = Languages.LANGUAGEID;
+
+select 
+    l.LANGUAGENAME
+from
+    Countries c
+JOIN
+    Languages l
+ON
+    c.LANGUAGEID = l.LANGUAGEID
+GROUP BY
+    l.LANGUAGENAME;
+
+
+INSERT INTO Languages values (0003, 'Mandarin');
+UPDATE Languages SET LanguageName = 'Japanese' WHERE LanguageID = 0003;
+DELETE FROM Languages WHERE LanguageID = 0003;
+SELECT * FROM Languages;
+
+
+select * from countries;
+select * from languages;
+
+commit;
